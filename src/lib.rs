@@ -1,4 +1,5 @@
-use std::fmt::format;
+use textwrap::wrap;
+use unicode_width::UnicodeWidthStr;
 
 pub struct Options {
     pub width: u32,
@@ -37,14 +38,19 @@ static GIGACHAD: &str = "
 static SAY_CHARS: Chars = Chars {
     arrow: "\\",
     top: "-",
-    bottom: "- ",
+    bottom: " -",
     line: "|",
     single_left: "<",
     single_right: ">",
     angled_up: "/",
 };
 
-fn generate_gigasay_message(message: &str, opts: Options) -> String {
+// TODO: opts for future
+fn generate_gigasay_message(message: &str, _opts: Options) -> String {
+    let mut lines = wrap(message, 100 as usize);
+    let mut longest = lines.iter().map(|line| line.width_cjk()).max().unwrap();
+    longest = closest_no_multiple_of_four(&mut longest);
+    let chars = &SAY_CHARS;
     format!(
         "
     {}
@@ -53,12 +59,44 @@ fn generate_gigasay_message(message: &str, opts: Options) -> String {
   {}
    {}
     {}",
-        message,
+        chars.top.repeat(longest + 1),
+        if lines.len() == 1 {
+            format!("{} {} {}", chars.single_left, lines[0], chars.single_right)
+        } else {
+            let mut result = format!(
+                "{} {}{}{}",
+                chars.angled_up,
+                lines[0],
+                " ".repeat(longest - lines[0].width() + 1),
+                chars.angled_up
+            );
+            lines.remove(0);
+            let last = lines.pop().unwrap();
+
+            for line in lines {
+                result = format!(
+                    "{}\n{} {}{}{}",
+                    result,
+                    chars.line,
+                    line,
+                    " ".repeat(longest - line.width() + 1),
+                    chars.line,
+                );
+            }
+
+            format!(
+                "{}\n{} {}{}{}",
+                result,
+                chars.angled_up,
+                last,
+                " ".repeat(longest - last.width() + 1),
+                chars.angled_up,
+            )
+        },
+        chars.bottom.repeat((longest / 2) + 1),
         SAY_CHARS.angled_up,
-        SAY_CHARS.single_left,
         SAY_CHARS.arrow,
         SAY_CHARS.arrow,
-        SAY_CHARS.arrow
     )
 }
 
