@@ -1,0 +1,8 @@
+[package]
+name = "gigasay"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+textwrap = "0.16.1"
+unicode-width = "0.1.13"
