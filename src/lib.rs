@@ -1,3 +1,7 @@
+pub struct Options {
+    pub width: u32,
+}
+
 struct Chars {
     arrow: &'static str,
     top: &'static str,
@@ -11,6 +15,26 @@ struct Chars {
     angled_down_right: &'static str,
     angled_down_left: &'static str,
 }
+
+static GIGACHAD: &str = "
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⢴⣮⣽⣿⣿⣿⣿⣿⣯⣭⣭⣿⣢⢄⡀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣾⣿⣿⣿⣿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣷⣿⢆⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⡿⠛⠋⠙⣉⠛⣛⣿⣿⣿⠟⠛⢧⢷⠀⠀
+⠀⠀⠀⠀⠀⠀⡼⣿⣿⣿⣿⣿⣿⠯⠄⠀⠀⠀⠀⣦⣤⣽⣿⣟⣗⣄⠈⢣⡗⠀
+⠀⠀⠀⠀⠀⢠⢿⣿⣿⣿⣿⣿⣿⡴⠚⠉⠀⢀⣤⣬⣬⣿⣿⣿⠹⣿⡇⠀⣿⠀
+⠀⠀⠀⠀⠀⢸⢸⣿⣿⣿⣿⣿⠋⠀⠀⢠⠴⠟⣛⣿⣿⣿⣿⣿⣶⣾⣰⡀⢹⡢
+⠀⠀⠀⠀⠀⣸⢾⠟⠻⣿⣿⠇⠀⠀⠀⠐⢿⣿⣿⣿⣿⣿⣿⡟⢻⢻⣿⣿⣶⡇
+⠀⠀⠀⠀⢀⣾⣏⣐⡄⠀⣯⡀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⠄⠘⣿⣿⣿⣷⡅
+⠀⠀⠀⠀⢸⣤⣿⣿⠀⠀⣿⣷⡀⠀⠀⠀⣠⣶⣿⣿⣿⣿⠇⣄⣀⠸⡾⣷⡄⡇
+⠀⠀⠀⠀⠈⠣⣃⡈⢉⣸⣿⡻⣿⣮⣴⣾⡏⢀⣽⣿⣿⣿⣶⣶⣶⣴⣇⣿⠀⣱
+⠀⠀⠀⠀⠀⠀⡏⡏⠁⣿⢿⣆⣿⣿⣿⣿⣧⣿⣿⣿⣛⣿⣿⣿⣿⡦⣾⡟⢠⣃
+⠀⠀⠀⠀⠀⠀⣧⡇⢠⡏⢂⢹⣿⣿⣿⣿⣿⣿⣿⣿⡷⣬⣭⣙⡛⢳⣼⣿⣿⣎
+⠀⠀⠀⠀⠀⢠⢿⠀⠘⣿⣧⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣾⣿⣿⣥⣿⣿⢿⡿
+⠀⠀⠀⠀⠀⢸⡟⠀⠀⠙⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣸⣿⢻⡿⠀
+⠀⠀⠀⠀⠀⣯⡇⠀⠀⠀⠀⠈⠙⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⢸⠁⠀
+⠀⠀⠀⢀⣴⠟⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣜⡆⠀
+⣒⠶⡛⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⡿⣠⡟⠀⠀
+";
 
 static SAY_CHARS: Chars = Chars {
     arrow: "\\",
@@ -34,6 +58,10 @@ fn closest_no_multiple_of_four(n: &mut usize) -> usize {
     } else {
         closest_no_multiple_of_four(&mut (*n + 1))
     }
+}
+
+pub fn print_message(message: &str, opts: Options) {
+    println!("{}{}", message, GIGACHAD);
 }
 
 #[cfg(test)]

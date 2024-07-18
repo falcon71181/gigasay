@@ -1,4 +1,5 @@
 use clap::Parser;
+use gigasay::{print_message, Options};
 use std::usize;
 use textwrap::wrap;
 use unicode_width::UnicodeWidthStr;
@@ -7,7 +8,7 @@ use unicode_width::UnicodeWidthStr;
 #[command(version, about)]
 struct Cli {
     #[clap(long, short)]
-    width: Option<u16>,
+    width: Option<u32>,
 
     #[clap(default_value = "Go to gym my kiddo")]
     message: String,
@@ -18,10 +19,8 @@ fn main() -> Result<(), ()> {
 
     let width = args.width.unwrap_or(50);
 
-    // let format_opts = FormatOptions {
-    //     think: args.think,
-    //     width,
-    // };
+    // INFO: additional options goes here
+    let opts = Options { width };
 
     println!("{:?}", args.message);
     println!("{:?}", args.width);
@@ -30,5 +29,6 @@ fn main() -> Result<(), ()> {
     let mut lines = wrap(message, 100 as usize);
     let mut longest = lines.iter().map(|line| line.width_cjk()).max().unwrap();
 
+    print_message(message, opts);
     Ok(())
 }
